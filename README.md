@@ -1,0 +1,3 @@
+# discoball
+
+Discord python bot
