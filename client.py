@@ -82,4 +82,20 @@ async def roll(ctx: SlashContext, num_sides: int = 6, num_dice: int = 2):
   await ctx.send(content=f"Rolled {num_dice} {num_sides}-sided dice. Output: {rolls}, Total: {sum(rolls)}")
 
 
+@slash.slash(
+    name="rock_paper_scissors",
+    guild_ids=GUILD_IDS,
+    description="Challenge another user to rock paper scissors",
+    options=[
+      create_option(
+            name="opponent",
+            description="Who to play against?",
+            option_type=SlashCommandOptionType.USER,
+            required=True,
+        ),
+    ])
+async def rock_paper_scissors(ctx: SlashContext):
+  pass # todo
+
+
 bot.run(BOT_TOKEN)
