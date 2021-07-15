@@ -5,7 +5,7 @@ from discord_slash import SlashCommand
 from discord_slash.utils.manage_commands import create_option, create_choice
 
 
-APP_ENV = os.getenv('APP_ENV', "production")
+APP_ENV = os.getenv('APP_ENV', "")
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 guild_ids = [218962182606422016] # bay of pigs
 
