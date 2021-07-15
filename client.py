@@ -62,7 +62,7 @@ async def system_info(ctx: SlashContext):
 @slash.slash(name="version", guild_ids=guild_ids)
 async def version(ctx: SlashContext):
     embed = Embed(title="Bot Version", timestamp=datetime.utcnow(), color=Color.green())
-    embed.add_field(name="Version", value=os.getenv("SOURCE_VERSION "), inline=False)
+    embed.add_field(name="Version", value=os.getenv("SOURCE_VERSION"), inline=False)
     await ctx.send(embed=embed)
 
 bot.run(BOT_TOKEN)
