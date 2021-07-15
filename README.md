@@ -69,7 +69,7 @@ git push                        # after first time
 ```
 
 ### Create a pull request
-[Create PR on Github](https://github.com/Porkbutts/discoball/compare) and compare the branch `<your_name` with `main`. Make sure `main` is the base.
+[Create PR on Github](https://github.com/Porkbutts/discoball/compare) and compare the branch `<your_name>` with `main`. Make sure `main` is the base.
 
 ### Request reviews
 
