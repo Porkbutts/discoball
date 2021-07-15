@@ -62,7 +62,7 @@ async def system_info(ctx: SlashContext):
 @slash.slash(name="version", guild_ids=guild_ids)
 async def version(ctx: SlashContext):
   try:
-    dt = datetime.strptime(os.getenv("HEROKU_RELEASE_CREATED_AT"))
+    dt = datetime.strptime(os.getenv("HEROKU_RELEASE_CREATED_AT"), "%Y-%m-%dT%H:%M:%SZ")
   except ValueError:
     dt = None
   embed = Embed(title="Version Information", timestamp=dt, color=Color.blurple(), description=os.getenv("HEROKU_SLUG_DESCRIPTION"))
