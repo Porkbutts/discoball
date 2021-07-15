@@ -65,11 +65,9 @@ async def version(ctx: SlashContext):
     dt = datetime.strptime(os.getenv("HEROKU_RELEASE_CREATED_AT"))
   except ValueError:
     dt = None
-  embed = Embed(title="Version Information", timestamp=dt, color=Color.blurple())
-  embed.add_field(name="Release Date/Time", value=os.getenv("HEROKU_RELEASE_CREATED_AT"), inline=False)
+  embed = Embed(title="Version Information", timestamp=dt, color=Color.blurple(), description=os.getenv("HEROKU_SLUG_DESCRIPTION"))
   embed.add_field(name="Release Version", value=os.getenv("HEROKU_RELEASE_VERSION"), inline=False)
   embed.add_field(name="Commit", value=os.getenv("HEROKU_SLUG_COMMIT"), inline=False)
-  embed.add_field(name="Description", value=os.getenv("HEROKU_SLUG_DESCRIPTION"), inline=False)
   await ctx.send(embed=embed)
 
 bot.run(BOT_TOKEN)
