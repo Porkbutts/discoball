@@ -11,7 +11,6 @@ from discord_slash import SlashCommand, SlashContext
 from discord_slash.utils.manage_commands import create_option
 
 
-
 APP_ENV = os.getenv('APP_ENV', "")
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 guild_ids = [218962182606422016] # bay of pigs
@@ -58,6 +57,12 @@ async def system_info(ctx: SlashContext):
     embed.add_field(name="System", value=platform.system(), inline=False)
     embed.add_field(name="Release", value=platform.release(), inline=False)
     embed.add_field(name="Version", value=platform.version(), inline=False)
+    await ctx.send(embed=embed)
+
+@slash.slash(name="version", guild_ids=guild_ids)
+async def version(ctx: SlashContext):
+    embed = Embed(title="Bot Version", timestamp=datetime.utcnow(), color=Color.green())
+    embed.add_field(name="Version", value=os.getenv("SOURCE_VERSION "), inline=False)
     await ctx.send(embed=embed)
 
 bot.run(BOT_TOKEN)
