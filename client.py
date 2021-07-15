@@ -53,19 +53,23 @@ async def roll(ctx: SlashContext, num_sides: int = 6, num_dice: int = 2):
 
 @slash.slash(name="sysinfo", guild_ids=guild_ids)
 async def system_info(ctx: SlashContext):
-    embed = Embed(title="System Information", timestamp=datetime.utcnow(), color=Color.green())
-    embed.add_field(name="System", value=platform.system(), inline=False)
-    embed.add_field(name="Release", value=platform.release(), inline=False)
-    embed.add_field(name="Version", value=platform.version(), inline=False)
-    await ctx.send(embed=embed)
+  embed = Embed(title="System Information", color=Color.blurple())
+  embed.add_field(name="System", value=platform.system(), inline=False)
+  embed.add_field(name="Release", value=platform.release(), inline=False)
+  embed.add_field(name="Version", value=platform.version(), inline=False)
+  await ctx.send(embed=embed)
 
 @slash.slash(name="version", guild_ids=guild_ids)
 async def version(ctx: SlashContext):
-    embed = Embed(title="Version Information", timestamp=datetime.utcnow(), color=Color.green())
-    embed.add_field(name="Release Date/Time", value=os.getenv("HEROKU_RELEASE_CREATED_AT"), inline=False)
-    embed.add_field(name="Release Version", value=os.getenv("HEROKU_RELEASE_VERSION"), inline=False)
-    embed.add_field(name="Commit", value=os.getenv("HEROKU_SLUG_COMMIT"), inline=False)
-    embed.add_field(name="Description", value=os.getenv("HEROKU_SLUG_DESCRIPTION"), inline=False)
-    await ctx.send(embed=embed)
+  try:
+    dt = datetime.strptime(os.getenv("HEROKU_RELEASE_CREATED_AT"))
+  except ValueError:
+    dt = None
+  embed = Embed(title="Version Information", timestamp=dt, color=Color.blurple())
+  embed.add_field(name="Release Date/Time", value=os.getenv("HEROKU_RELEASE_CREATED_AT"), inline=False)
+  embed.add_field(name="Release Version", value=os.getenv("HEROKU_RELEASE_VERSION"), inline=False)
+  embed.add_field(name="Commit", value=os.getenv("HEROKU_SLUG_COMMIT"), inline=False)
+  embed.add_field(name="Description", value=os.getenv("HEROKU_SLUG_DESCRIPTION"), inline=False)
+  await ctx.send(embed=embed)
 
 bot.run(BOT_TOKEN)
