@@ -61,8 +61,11 @@ async def system_info(ctx: SlashContext):
 
 @slash.slash(name="version", guild_ids=guild_ids)
 async def version(ctx: SlashContext):
-    embed = Embed(title="Bot Version", timestamp=datetime.utcnow(), color=Color.green())
-    embed.add_field(name="Version", value=os.getenv("SOURCE_VERSION"), inline=False)
+    embed = Embed(title="Version Information", timestamp=datetime.utcnow(), color=Color.green())
+    embed.add_field(name="Release Date/Time", value=os.getenv("HEROKU_RELEASE_CREATED_AT"), inline=False)
+    embed.add_field(name="Release Version", value=os.getenv("HEROKU_RELEASE_VERSION"), inline=False)
+    embed.add_field(name="Commit", value=os.getenv("HEROKU_SLUG_COMMIT"), inline=False)
+    embed.add_field(name="Description", value=os.getenv("HEROKU_SLUG_DESCRIPTION"), inline=False)
     await ctx.send(embed=embed)
 
 bot.run(BOT_TOKEN)
