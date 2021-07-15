@@ -55,9 +55,9 @@ async def roll(ctx: SlashContext, num_sides: int = 6, num_dice: int = 2):
 @slash.slash(name="sysinfo", guild_ids=guild_ids)
 async def system_info(ctx: SlashContext):
     embed = Embed(title="System Information", timestamp=datetime.utcnow(), color=Color.green())
-    embed.add_field(name="System", value=platform.system())
-    embed.add_field(name="Release", value=platform.release())
-    embed.add_field(name="Version", value=platform.version())
+    embed.add_field(name="System", value=platform.system(), inline=False)
+    embed.add_field(name="Release", value=platform.release(), inline=False)
+    embed.add_field(name="Version", value=platform.version(), inline=False)
     await ctx.send(embed=embed)
 
 bot.run(BOT_TOKEN)
