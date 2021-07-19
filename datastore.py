@@ -28,6 +28,11 @@ class Datastore():
                 self.__data = {}
         return self.__data
 
+    @data.setter
+    def data(self, value):
+        """Sets the value of data.
+        """
+        self.__data = value
 
     def save(self):
         """Serializes self.__data as json and saves the result to S3.
