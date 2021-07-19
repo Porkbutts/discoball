@@ -80,8 +80,8 @@ DICE = {
 async def roll(ctx: SlashContext, num_dice: int = 2):
   embed = Embed(title="Results", color=Color.blurple())
   rolls = [random.choice(list(DICE.items())) for _ in range(num_dice)]
-  embed.add_field(name="Rolls", value=" ".join([r[1] for r in rolls]), inline=True)
-  embed.add_field(name="Total", value=sum([r[0] for r in rolls]), inline=True)
+  embed.add_field(name="Rolls", value=" ".join(map(lambda r: r[1], rolls)), inline=True)
+  embed.add_field(name="Total", value=sum(map(lambda r: r[0], rolls)), inline=True)
   await ctx.send(embed=embed)
 
 
