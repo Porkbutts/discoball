@@ -56,6 +56,14 @@ async def version(ctx: SlashContext):
       "HEROKU_SLUG_DESCRIPTION"), inline=False)
   await ctx.send(embed=embed)
 
+DICE = {
+    1: "<:diceone:866483928164073503>",
+    2: "<:dicetwo:866484579070509067>",
+    3: "<:dicethree:866484611944153118>",
+    4: "<:dicefour:866484638952587265>",
+    5: "<:dicefive:866484664264032276>",
+    6: "<:dicesix:866484690965233685>",
+}
 
 @slash.slash(
     name="roll",
@@ -63,23 +71,18 @@ async def version(ctx: SlashContext):
     description="Roll an N-sided die",
     options=[
         create_option(
-            name="num_sides",
-            description="How many sides to the die? (default: 6)",
-            option_type=SlashCommandOptionType.INTEGER,
-            required=False,
-        ),
-        create_option(
             name="num_dice",
             description="How many die to roll? (default: 2)",
             option_type=SlashCommandOptionType.INTEGER,
             required=False,
         ),
     ])
-async def roll(ctx: SlashContext, num_sides: int = 6, num_dice: int = 2):
-  rolls = []
-  for _ in range(num_dice):
-    rolls.append(random.randint(1, num_sides))
-  await ctx.send(content=f"Rolled {num_dice} {num_sides}-sided dice. Output: {rolls}, Total: {sum(rolls)}")
+async def roll(ctx: SlashContext, num_dice: int = 2):
+  embed = Embed(title="Results", color=Color.blurple())
+  rolls = [random.choice(list(DICE.items())) for _ in range(num_dice)]
+  embed.add_field(name="Rolls", value=" ".join([r[1] for r in rolls]), inline=True)
+  embed.add_field(name="Total", value=sum([r[0] for r in rolls]), inline=True)
+  await ctx.send(embed=embed)
 
 
 bot.run(BOT_TOKEN)
