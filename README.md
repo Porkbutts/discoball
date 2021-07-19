@@ -1,21 +1,23 @@
 # discoball
 
-Discord bot written with `discord.py` hosted on `Heroku` 
+Discord bot written with `discord.py` hosted on `Heroku`
 
 ## Getting Started
 
 ### Prerequisites
+
 1. Download Python3
 1. Download an IDE like
-    - **Atom**
-    - **Visual Studio Code** (better)
-    - **PyCharm** (best)
+   - **Atom**
+   - **Visual Studio Code** (better)
+   - **PyCharm** (best)
 1. Install virtualenv using `pip install -U virtualenv`
 
 ### Setup the project
+
 ```
 # Create the virtualenv
-virtualenv venv        
+virtualenv venv
 
 # Activate the virtualenv
 source venv/bin/activate    # Linux / OSX
@@ -26,20 +28,31 @@ pip install -r requirements.txt
 ```
 
 ### Run locally
-The bot is configured using *Environment Variables*
+
+The bot is configured using _Environment Variables_
+
 ```
-# Setting APP_ENV=production will sync slash commands
-[APP_ENV=production] BOT_TOKEN=token python client.py
+export BOT_TOKEN=[discord token]
+export APP_ENV=production # this will sync slash commands
+
+# Setup AWS envs for programmatic access to S3
+# alternatively you can write these to ~/.aws/credentials
+export AWS_ACCESS_KEY_ID=[aws access key]
+export AWS_SECRET_ACCESS_KEY=[aws secret key]
+
+python client.py
 ```
 
 ## Next Steps
 
 ### Set up linting
+
 - [PyCharm](https://plugins.jetbrains.com/plugin/11084-pylint)
 - [Visual Studio Code](https://code.visualstudio.com/docs/python/linting)
 - [Atom](https://hackernoon.com/setting-up-atom-as-a-python-ide-a-how-to-guide-o6dd37ff)
 
 ### Learn how to run the debugger
+
 - [PyCharm](https://www.jetbrains.com/help/pycharm/debugging-your-first-python-application.html)
 - [Visual Studio Code](https://code.visualstudio.com/docs/python/python-tutorial)
 - [Atom](https://atom.io/packages/python-debugger)
@@ -47,6 +60,7 @@ The bot is configured using *Environment Variables*
 ## How to contribute
 
 ### Make a new branch
+
 ```bash
 # Start from main and make sure you are up to date
 git checkout main
@@ -57,18 +71,21 @@ git checkout -b <your_name>
 ```
 
 ### Do some work
+
 ```
 echo "hello world" > example.txt
 git commit -m "Added a file example.txt"
 ```
 
 ### Sync to github
+
 ```
 git push -u origin <your_name>  # first time only
 git push                        # after first time
 ```
 
 ### Create a pull request
+
 [Create PR on Github](https://github.com/Porkbutts/discoball/compare) and compare the branch `<your_name>` with `main`. Make sure `main` is the base.
 
 ### Request reviews
@@ -76,6 +93,7 @@ git push                        # after first time
 ![xyz](./images/add-reviewers.png)
 
 ## Useful reading
+
 - Documentation for [discord-py-slash-command](https://discord-py-slash-command.readthedocs.io/en/latest/)
 - Documentation for [discord.py](https://discordpy.readthedocs.io/en/stable/)
 - Documentation for [discord apps](https://discord.com/developers/docs/intro)

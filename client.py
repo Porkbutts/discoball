@@ -1,6 +1,8 @@
+from datastore import Datastore
 import os
 import platform
 
+import json
 import random
 from datetime import datetime
 
@@ -19,7 +21,7 @@ GUILD_IDS = [218962182606422016]  # bay of pigs
 bot = commands.Bot(command_prefix='!',
                    description="the pork bot", intents=Intents.all())
 slash = SlashCommand(bot, sync_commands=APP_ENV.lower() == 'production')
-
+ds = Datastore()
 
 @bot.event
 async def on_ready():
@@ -80,6 +82,48 @@ async def roll(ctx: SlashContext, num_sides: int = 6, num_dice: int = 2):
   for _ in range(num_dice):
     rolls.append(random.randint(1, num_sides))
   await ctx.send(content=f"Rolled {num_dice} {num_sides}-sided dice. Output: {rolls}, Total: {sum(rolls)}")
+  
+  
+@slash.slash(
+    name="save",
+    guild_ids=GUILD_IDS,
+    description="Update a key/value",
+    options=[
+        create_option(
+            name="key",
+            description="key",
+            option_type=SlashCommandOptionType.STRING,
+            required=True,
+        ),
+        create_option(
+            name="value",
+            description="value",
+            option_type=SlashCommandOptionType.STRING,
+            required=True,
+        ),
+    ])
+async def save(ctx: SlashContext, key, value):
+  ds.data[key] = json.loads(value)
+  formatted = json.dumps(ds.data, indent=2)
+  await ctx.send(content=f"```json\n{formatted}\n```")
+  ds.save()
 
-
+    
+@slash.slash(
+    name="read",
+    guild_ids=GUILD_IDS,
+    description="Read the value of a key stored with save()",
+    options=[
+        create_option(
+            name="key",
+            description="key",
+            option_type=SlashCommandOptionType.STRING,
+            required=True,
+        ),
+    ])
+async def read(ctx: SlashContext, key):
+  formatted = json.dumps(ds.data[key], indent=2)
+  await ctx.send(content=f"```json\n{formatted}\n```")
+  
+  
 bot.run(BOT_TOKEN)
