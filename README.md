@@ -28,6 +28,7 @@ The bot is configured using *Environment Variables*
 ```
 export BOT_TOKEN=[discord token]
 export APP_ENV=production # this will sync slash commands
+
 # Setup AWS envs for programmatic access to S3
 # alternatively you can write these to ~/.aws/credentials
 export AWS_ACCESS_KEY_ID=[aws access key]

@@ -1,3 +1,4 @@
+from json.decoder import JSONDecodeError
 from datastore import Datastore
 import os
 import platform
@@ -103,10 +104,16 @@ async def roll(ctx: SlashContext, num_sides: int = 6, num_dice: int = 2):
         ),
     ])
 async def save(ctx: SlashContext, key, value):
-  ds.data[key] = json.loads(value)
-  formatted = json.dumps(ds.data, indent=2)
-  await ctx.send(content=f"```json\n{formatted}\n```")
-  ds.save()
+    try:
+        decoded = json.loads(value)
+    except JSONDecodeError:
+        decoded = value
+    ds.data[key] = decoded
+    formatted = json.dumps(ds.data, indent=2)
+    embed = Embed(title="Datastore", color=Color.blurple())
+    embed.add_field(name="result", value=f"```json\n{formatted}\n```", inline=False)
+    await ctx.send(embed=embed)
+    ds.save()
 
 
 @slash.slash(
@@ -122,8 +129,11 @@ async def save(ctx: SlashContext, key, value):
         ),
     ])
 async def read(ctx: SlashContext, key):
-  formatted = json.dumps(ds.data[key], indent=2)
-  await ctx.send(content=f"```json\n{formatted}\n```")
+    embed = Embed(title="Datastore", color=Color.blurple())
+    embed.add_field(name="key", value=key, inline=True)
+    formatted = json.dumps(ds.data[key], indent=2)
+    embed.add_field(name="value", value=f"```json\n{formatted}\n```", inline=False)
+    await ctx.send(embed=embed)
 
 
 bot.run(BOT_TOKEN)
