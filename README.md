@@ -16,11 +16,9 @@ Discord bot written with `discord.py` hosted on `Heroku`
 ```
 # Create the virtualenv
 virtualenv venv        
-
 # Activate the virtualenv
 source venv/bin/activate    # Linux / OSX
 venv/Scripts/activate.ps1   # Windows powershell
-
 # Install requirements
 pip install -r requirements.txt
 ```
@@ -28,8 +26,14 @@ pip install -r requirements.txt
 ### Run locally
 The bot is configured using *Environment Variables*
 ```
-# Setting APP_ENV=production will sync slash commands
-[APP_ENV=production] BOT_TOKEN=token python client.py
+export BOT_TOKEN=[discord token]
+export APP_ENV=production # this will sync slash commands
+
+# Setup AWS envs for programmatic access to S3
+# alternatively you can write these to ~/.aws/credentials
+export AWS_ACCESS_KEY_ID=[aws access key]
+export AWS_SECRET_ACCESS_KEY=[aws secret key]
+python client.py
 ```
 
 ## Next Steps
@@ -51,7 +55,6 @@ The bot is configured using *Environment Variables*
 # Start from main and make sure you are up to date
 git checkout main
 git pull
-
 # Create your feature branch
 git checkout -b <your_name>
 ```
